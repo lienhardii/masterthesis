@@ -128,6 +128,9 @@ const app = {
                 // Skip title - don't store or render meta.title
                 if (key.toLowerCase() === 'title') {
                   // Do nothing - title is skipped
+                } else if (key.toLowerCase() === 'subtitle') {
+                  // Store subtitle for rendering
+                  meta.subtitle = value;
                 } else if (key.toLowerCase() === 'tags') {
                   // Parse comma-separated tags
                   meta.tags = value.split(',').map(t => t.trim()).filter(t => t);
@@ -151,6 +154,7 @@ const app = {
 
     const result = {
       title: meta.title || 'Untitled',
+      subtitle: meta.subtitle || '',
       date: meta.date || new Date().toISOString().split('T')[0],
       tags: meta.tags || [],
       content: html,
