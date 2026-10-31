@@ -3,10 +3,11 @@ function renderHeader(currentPage = 'start') {
   
   header.innerHTML = `
     <header class="header">
-      <h1 class="header-logo"><a href="./">Masterarbeit</a></h1>
+      <p class="header-logo"><a href="./">Jasmin Lienhard</a></p>
       
       <!-- Desktop Navigation -->
       <nav class="header-nav desktop-nav">
+        <a href="#" class="nav-link ${currentPage === 'research-thesis' ? 'active' : ''}" data-page="research-thesis">Research-Thesis</a>
         <a href="#" class="nav-link ${currentPage === 'reflexion' ? 'active' : ''}" data-page="reflexion">Reflexion</a>
         <a href="#" class="nav-link ${currentPage === 'about' ? 'active' : ''}" data-page="about">About</a>
       </nav>
@@ -25,6 +26,7 @@ function renderHeader(currentPage = 'start') {
         <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close">✕</button>
       </div>
       <nav class="mobile-menu-nav">
+        <a href="#" class="mobile-nav-link ${currentPage === 'research-thesis' ? 'active' : ''}" data-page="research-thesis">Research-Thesis</a>
         <a href="#" class="mobile-nav-link ${currentPage === 'reflexion' ? 'active' : ''}" data-page="reflexion">Reflexion</a>
         <a href="#" class="mobile-nav-link ${currentPage === 'about' ? 'active' : ''}" data-page="about">About</a>
       </nav>

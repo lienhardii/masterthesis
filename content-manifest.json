@@ -1,6 +1,12 @@
 {
+  "start": [
+    "00-intro.md",
+    "01-intro.md",
+    "02-intro.md",
+    "03-intro.md"
+  ],
   "thesis": [
-    "00-hallo.md"
+    
   ],
   "reflexion": [
   ]

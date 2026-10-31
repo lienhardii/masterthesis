@@ -1,7 +1,8 @@
-function renderSection(title, content, id = '') {
+// Render section: Subtitle (optional) + Markdown Content (H1, H2, etc. bleiben erhalten)
+function renderSection(content, subtitle = '', id = '') {
   return `
     <section id="${id}" class="section">
-      
+      ${subtitle ? `<p class="subtitle">${escapeHtml(subtitle)}</p>` : ''}
       <div class="section-content">
         ${content}
       </div>
@@ -9,38 +10,10 @@ function renderSection(title, content, id = '') {
   `;
 }
 
-function renderIntro(content) {
-  return `
-    <div class="intro-section">
-      ${content}
-    </div>
-  `;
-}
-
-// Render thesis overview as grid (3-spaltig responsive)
-function renderThesisGrid(thesisSections) {
-  const gridItems = thesisSections.map(section => `
-    <div class="pure-u-1 pure-u-md-1-3">
-      <div class="pure-panel">
-        
-        <div class="section-preview">
-          ${section.content.substring(0, 200)}...
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  return `
-    <div class="pure-g">
-      ${gridItems}
-    </div>
-  `;
-}
-
 // Render thesis sections as full-width (stacked)
 function renderThesisSections(thesisSections) {
-  return thesisSections.map(section => 
-    renderSection(section.title, section.content, `thesis-${section.title.toLowerCase().replace(/\s+/g, '-')}`)
+  return thesisSections.map((section, index) => 
+    renderSection(section.content, section.subtitle, `section-${index}`)
   ).join('');
 }
 

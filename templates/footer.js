@@ -1,14 +1,27 @@
+// Render footer
 function renderFooter() {
-  const footer = document.getElementById('footer-container');
-  const year = new Date().getFullYear();
-  footer.innerHTML = `
+  const footerContainer = document.getElementById('footer-container');
+  
+  if (!footerContainer) {
+    console.warn('⚠️ Footer container (footer-container) not found');
+    return;
+  }
+
+  footerContainer.innerHTML = `
     <footer>
-      <div class="container">
-        <p>&copy; ${year} Masterarbeit.</p>
+      <div class="footer-content">
+        <p class="footer-copyright">© Jasmin Lienhard</p>
+        <p class="footer-info">Master of Arts Eco Social Design HSLU</p>
       </div>
     </footer>
   `;
+  
+  console.log('✅ Footer rendered');
 }
 
-// Call on page load
-renderFooter();
+// Render immediately when script loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderFooter);
+} else {
+  renderFooter();
+}
