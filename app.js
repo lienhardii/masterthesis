@@ -337,7 +337,7 @@ const app = {
     if (this.content.start && this.content.start.length > 0) {
       html += renderThesisSections(this.content.start);
     } else {
-      html += '<p>No start content yet. Add markdown files to /content/start/</p>';
+      html += '<p>Bitte warten... </p>';
     }
     html += '</div>';
 
