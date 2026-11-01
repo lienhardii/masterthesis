@@ -11,3 +11,5 @@ Dafür möchte ich Gegenstände, Bilder und Gesprächsformate entwickeln und erp
 Welche Form dafür sinnvoll ist, möchte ich nicht losgelöst vom jeweiligen Umfeld entscheiden. Mich interessiert die Zusammenarbeit mit Menschen, die Erfahrungen aus ihrer Praxis einbringen und Ansätze gemeinsam mit mir prüfen möchten.
 
 Gestaltung kann dabei weder Beratung und Schutzstrukturen noch rechtliche Regulierung ersetzen. Ihr Beitrag kann darin liegen, Fragen zugänglich zu machen und eine gemeinsame Auseinandersetzung zu ermöglichen.
+
+Bei Interesse: jasmin.lienhard@stud.hslu.ch
