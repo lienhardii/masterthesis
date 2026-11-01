@@ -9,3 +9,5 @@ date: 2024-10-29
 Ein abwertender Kommentar gilt als Witz. Eine Grenzüberschreitung wird als «nicht so gemeint» abgetan. Kontrolle wird mit Fürsorge verwechselt.
 
 Mich beschäftigt, wie Sprache, Bilder und alltägliche Vorstellungen digitale Gewalt verharmlosen und wie Gestaltung dazu beitragen kann, diese Normalisierung zu hinterfragen.
+
+[Mehr zum Hintergrund](./#thesis){.link-icon}

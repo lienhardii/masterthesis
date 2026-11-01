@@ -7,7 +7,7 @@ function renderHeader(currentPage = 'start') {
       
       <!-- Desktop Navigation -->
       <nav class="header-nav desktop-nav">
-        <a href="#" class="nav-link ${currentPage === 'research-thesis' ? 'active' : ''}" data-page="research-thesis">Research-Thesis</a>
+        <a href="#" class="nav-link ${currentPage === 'thesis' ? 'active' : ''}" data-page="thesis">Research-Thesis</a>
         <a href="#" class="nav-link ${currentPage === 'reflexion' ? 'active' : ''}" data-page="reflexion">Reflexion</a>
         <a href="#" class="nav-link ${currentPage === 'about' ? 'active' : ''}" data-page="about">About</a>
       </nav>
@@ -23,7 +23,7 @@ function renderHeader(currentPage = 'start') {
     <!-- Mobile Menu (Full-Screen) -->
     <div class="mobile-menu" id="mobile-menu">
       <nav class="mobile-menu-nav">
-        <a href="#" class="mobile-nav-link ${currentPage === 'research-thesis' ? 'active' : ''}" data-page="research-thesis">Research-Thesis</a>
+        <a href="#" class="mobile-nav-link ${currentPage === 'thesis' ? 'active' : ''}" data-page="thesis">Research-Thesis</a>
         <a href="#" class="mobile-nav-link ${currentPage === 'reflexion' ? 'active' : ''}" data-page="reflexion">Reflexion</a>
         <a href="#" class="mobile-nav-link ${currentPage === 'about' ? 'active' : ''}" data-page="about">About</a>
       </nav>

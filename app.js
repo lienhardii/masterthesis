@@ -1,7 +1,7 @@
 const app = {
   currentPage: 'start',
   manifest: null,
-  content: { start: [], 'research-thesis': [], reflexion: [] },
+  content: { start: [], thesis: [], reflexion: [] },
 
   async init() {
     console.log('🚀 Initializing app with Pure.css...');
@@ -15,7 +15,7 @@ const app = {
 
     // Check URL hash for page to load
     const hash = window.location.hash.slice(1); // Remove #
-    const validPages = ['research-thesis', 'reflexion', 'about'];
+    const validPages = ['thesis', 'reflexion', 'about'];
     if (hash && validPages.includes(hash)) {
       this.currentPage = hash;
       console.log('📍 Loaded from hash:', hash);
@@ -27,7 +27,7 @@ const app = {
     // Listen for hash changes (back/forward button)
     window.addEventListener('hashchange', () => {
       const newHash = window.location.hash.slice(1);
-      const validPages = ['research-thesis', 'reflexion', 'about'];
+      const validPages = ['thesis', 'reflexion', 'about'];
       if (newHash && validPages.includes(newHash)) {
         this.setCurrentPage(newHash);
       } else if (!newHash) {
@@ -63,7 +63,7 @@ const app = {
 
   async loadAllContent() {
     // Initialize arrays (verhindert Duplikate bei mehrfachem Laden)
-    this.content = { start: [], 'research-thesis': [], reflexion: [] };
+    this.content = { start: [], 'thesis': [], reflexion: [] };
 
     // Load start files
     if (this.manifest.start) {
@@ -75,14 +75,14 @@ const app = {
       console.log('✅ Loaded start:', this.content.start.length, 'files');
     }
 
-    // Load research-thesis files
-    if (this.manifest['research-thesis']) {
-      console.log('📚 Loading research-thesis files:', this.manifest['research-thesis']);
-      for (const file of this.manifest['research-thesis']) {
-        const content = await this.loadMarkdownFile('content/research-thesis', file);
-        this.content['research-thesis'].push(content);
+    // Load thesis files
+    if (this.manifest['thesis']) {
+      console.log('📚 Loading thesis files:', this.manifest['thesis']);
+      for (const file of this.manifest['thesis']) {
+        const content = await this.loadMarkdownFile('content/thesis', file);
+        this.content['thesis'].push(content);
       }
-      console.log('✅ Loaded research-thesis:', this.content['research-thesis'].length, 'files');
+      console.log('✅ Loaded thesis:', this.content['thesis'].length, 'files');
     }
 
     // Load reflexion files
@@ -229,10 +229,14 @@ const app = {
     html = html.replace(/_(.+?)_/g, '<em>$1</em>');
 
     // Images (AFTER italic/bold, so underscores in URLs aren't parsed as emphasis)
-    html = html.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="responsive-image">');
+    html = html.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="pure-img">');
 
     // Links
-    html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    html = html.replace(/\[(.*?)\]\((.*?)\)(?:\{\.([^}]+)\})?/g, (match, text, url, className) => {
+      const classAttribute = className ? ` class="${className}"` : '';
+      const newTabAttributes = /^https?:\/\//i.test(url) ? ' target="_blank" rel="noopener"' : '';
+      return `<a href="${url}"${newTabAttributes}${classAttribute}>${text}</a>`;
+    });
 
     // Inline code
     html = html.replace(/`(.*?)`/g, '<code>$1</code>');
@@ -245,8 +249,8 @@ const app = {
     html = html.replace(/^- (.*?)$/gm, '<li>$1</li>');
     html = html.replace(/^\d+\. (.*?)$/gm, '<li>$1</li>');
 
-    // Wrap consecutive list items in ul
-    html = html.replace(/(<li>.*?<\/li>)/s, (match) => {
+    // Wrap each consecutive group of list items in ul
+    html = html.replace(/<li>.*?<\/li>(?:\s*<li>.*?<\/li>)*/gs, (match) => {
       return '<ul>' + match + '</ul>';
     });
 
@@ -304,13 +308,13 @@ const app = {
     window.scrollTo(0, 0);
   },
 
-  renderContent() {
+  /* renderContent() {
     const contentDiv = document.getElementById('content');
     let html = '';
 
     if (this.currentPage === 'start') {
       html = this.renderStartPage();
-    } else if (this.currentPage === 'research-thesis') {
+    } else if (this.currentPage === 'thesis') {
       html = this.renderResearchThesisPage();
     } else if (this.currentPage === 'reflexion') {
       html = this.renderReflexionPage();
@@ -331,6 +335,54 @@ const app = {
     });
   },
 
+  */
+
+  async renderContent() {
+  const contentDiv = document.getElementById('content');
+  const main = document.querySelector('main');
+  
+  let html = '';
+  
+      if (this.currentPage === 'start') {
+      html = this.renderStartPage();
+    } else if (this.currentPage === 'thesis') {
+      html = this.renderResearchThesisPage();
+    } else if (this.currentPage === 'reflexion') {
+      html = this.renderReflexionPage();
+    } else if (this.currentPage === 'about') {
+      html = this.renderAboutPage();
+    }
+
+  
+  // DISSOLVE OUT
+  main.classList.add('dissolve-out');
+  await this.sleep(300); // Wait for fade-out
+  
+  // SWAP CONTENT
+  contentDiv.innerHTML = '';
+  contentDiv.innerHTML = html;
+  
+  // DISSOLVE IN
+  main.classList.remove('dissolve-out');
+  main.classList.add('dissolve-in');
+  await this.sleep(400); // Wait for fade-in
+  main.classList.remove('dissolve-in');
+  
+  // Re-attach listeners
+  document.querySelectorAll('.tag').forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Tag clicked:', tag.dataset.tag);
+    });
+  });
+  renderFooter(); // Render footer after app initialization
+},
+
+// Helper function
+sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+},
+
   renderStartPage() {
     // Render all start sections stacked (full-width)
     let html = '<div class="container">';
@@ -345,10 +397,10 @@ const app = {
   },
 
   renderResearchThesisPage() {
-    // Render all research-thesis sections stacked (full-width)
+    // Render all thesis sections stacked (full-width)
     let html = '<div class="container">';
-    if (this.content['research-thesis'] && this.content['research-thesis'].length > 0) {
-      html += renderThesisSections(this.content['research-thesis']);
+    if (this.content['thesis'] && this.content['thesis'].length > 0) {
+      html += renderThesisSections(this.content['thesis']);
     } else {
       html += '<p>Inhalt folgt...</p>';
     }

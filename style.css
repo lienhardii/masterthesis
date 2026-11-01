@@ -26,8 +26,8 @@
   /* ===== SCHRIFTGROSSEN (in REM) ===== */
   --fs-title: 3rem;
   --fs-h1: 2rem;
-  --fs-h2: 1.75rem;
-  --fs-h3: 1.5rem;
+  --fs-h2: 1.6rem;
+  --fs-h3: 1.4rem;
   --fs-body: 1rem;
   --fs-body-large: 1.125rem;
   --fs-body-small: 0.875rem;
@@ -35,7 +35,7 @@
 
   /* ===== SCHRIFTARTEN ===== */
   --font-sans: "Inclusive Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-serif: "Cactus Classical Serif", "Georgia", serif;
+  --font-serif: "Noto Serif", /*"Cactus Classical Serif",*/ "Georgia", serif;
   --font-mono: "Monaco", "Courier New", monospace;
 
   /* ===== ABSTÄNDE (T-Shirt Sizes in REM) ===== */
@@ -107,6 +107,7 @@ body {
   height: 100%;
   font-family: var(--font-serif);
   font-size: var(--fs-body);
+  font-weight: 350;
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
@@ -138,6 +139,10 @@ h3 {
   margin: var(--spacing-l) 0 var(--spacing-s);
 }
 
+strong {
+  font-weight: 500;
+}
+
 /* ===== LINKS ===== */
 a {
   color: var(--accent);
@@ -160,7 +165,7 @@ a.link-icon {
   color: var(--accent);
   font-size: var(--fs-body);
   font-weight: 400;
-  border-bottom: 1px solid transparent;
+  
   transition: var(--transition);
 }
 
@@ -173,7 +178,7 @@ a.link-icon::after {
 
 a.link-icon:hover {
   color: var(--accent-hover);
-  border-bottom: 1px solid var(--accent-hover);
+  border-bottom: 1px solid transparent;
 }
 
 a.link-icon:hover::after {
@@ -472,8 +477,10 @@ section p.subtitle {
 
 section ul,
 section ol {
-  margin: var(--spacing-m) 0 var(--spacing-m) var(--spacing-xl);
+  margin: 0 var(--spacing-m) 0 var(--spacing-m);
   color: var(--text);
+  list-style-type: none;
+  
 }
 
 section li {
@@ -507,28 +514,6 @@ section pre {
 section pre code {
   background: none;
   padding: 0;
-}
-
-/* ===== IMAGES ===== */
-img.responsive-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  
-}
- 
-@media (min-width: 768px) {
-  img.responsive-image {
-    max-width: 90%;
-    
-  }
-}
- 
-@media (min-width: 1024px) {
-  img.responsive-image {
-    max-width: 80%;
- 
-  }
 }
 
 /* ===== BLOG POSTS ===== */
@@ -689,4 +674,30 @@ footer a:hover {
     flex-direction: column;
     gap: 0.5rem;
   }
+}
+
+
+/* ===== DISSOLVE ANIMATIONS ===== */
+@keyframes dissolveIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dissolveOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+main {
+  /* ... existing styles ... */
+  transition: opacity 0.3s ease;
+}
+
+main.dissolve-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+main.dissolve-in {
+  animation: dissolveIn 0.4s ease forwards;
 }

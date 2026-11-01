@@ -19,9 +19,11 @@ function renderFooter() {
   console.log('✅ Footer rendered');
 }
 
+/*
 // Render immediately when script loads
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', renderFooter);
 } else {
   renderFooter();
 }
+  */

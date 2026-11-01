@@ -6,7 +6,10 @@
     "03-intro.md"
   ],
   "thesis": [
-    
+    "00-hintergrund.md",
+    "01-erkenntnisse.md",
+    "02-gestaltung.md",
+    "03-ausblick.md"
   ],
   "reflexion": [
   ]
