@@ -12,8 +12,8 @@ function renderHeader(currentPage = 'start') {
         <a href="#" class="nav-link ${currentPage === 'about' ? 'active' : ''}" data-page="about">About</a>
       </nav>
 
-      <!-- Mobile Hamburger Button -->
-      <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+      <!-- Mobile Menu Toggle -->
+      <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <span></span>
         <span></span>
         <span></span>
@@ -22,9 +22,6 @@ function renderHeader(currentPage = 'start') {
 
     <!-- Mobile Menu (Full-Screen) -->
     <div class="mobile-menu" id="mobile-menu">
-      <div class="mobile-menu-header">
-        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close">✕</button>
-      </div>
       <nav class="mobile-menu-nav">
         <a href="#" class="mobile-nav-link ${currentPage === 'research-thesis' ? 'active' : ''}" data-page="research-thesis">Research-Thesis</a>
         <a href="#" class="mobile-nav-link ${currentPage === 'reflexion' ? 'active' : ''}" data-page="reflexion">Reflexion</a>
@@ -36,14 +33,12 @@ function renderHeader(currentPage = 'start') {
   // Hamburger toggle
   const hamburger = document.getElementById('hamburger-btn');
   const mobileMenu = document.getElementById('mobile-menu');
-  const closeBtn = document.getElementById('mobile-menu-close');
 
   hamburger.addEventListener('click', () => {
-    mobileMenu.classList.add('open');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
   });
 
   // Add click handlers to all nav links (desktop + mobile)
@@ -56,6 +51,9 @@ function renderHeader(currentPage = 'start') {
         // Close mobile menu if open
         if (mobileMenu) {
           mobileMenu.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          hamburger.setAttribute('aria-label', 'Open menu');
         }
       }
     });
